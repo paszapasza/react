@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+
+const ppl = ['tomek', 'albert', 'zenon', 'bartek', 'hieronim'];
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      'ppl': ppl
+    }
+  }
+
+  getString(e) {
+    const str = e.target.value;
+    const filteredPpl = this.filterVal(str);
+    this.setState({
+      'ppl': filteredPpl
+    })
+  }
+
+  filterVal(str) {
+    return ppl.filter(el => el.includes(str));
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <input type="text" onInput={this.getString.bind(this)}/>
+        <ShowItems items={this.state.ppl}/>
       </div>
     );
   }
+}
+
+const ShowItems = ({items}) => {
+  return items.map((el,i) => <li key={i}>{el}</li>)
 }
 
 export default App;

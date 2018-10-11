@@ -12,7 +12,7 @@ class App extends Component {
     }
   }
 
-  getString(e) {
+  getString = (e) => {
     const str = e.target.value;
     const filteredPpl = this.filterVal(str);
     this.setState({
@@ -27,15 +27,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="text" onInput={this.getString.bind(this)}/>
+        <input type="text" onInput={this.getString}/>
         <ShowItems items={this.state.ppl}/>
       </div>
     );
   }
 }
 
-const ShowItems = ({items}) => {
-  return items.map((el,i) => <li key={i}>{el}</li>)
+const ShowItems = ({items=[]}) => {
+  if (items.length > 0) {
+    return items.map((el,i) => <li key={i}>{el}</li>)
+  } else {
+    return 'No results!'
+  }
 }
 
-export default App;
+export { App, ShowItems }
